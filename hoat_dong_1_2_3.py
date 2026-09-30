@@ -1,85 +1,62 @@
-#bai1.1
-sinh_vien = {
-    "ho_ten": "Nguyen Van A",
-    "nam_sinh": 2004,
-    "diem_tb": 8.5
-}
+#Hoạt động 1:
+#BÀI 1.1:
+def uscln(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+def bscnn(a, b):
+    return a * b // uscln(a, b)
+def kiem_tra_nguyen_to(n):
+    if n < 2:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+def kiem_tra_so_hoan_thien(n):
+    tong_uoc = 0
+    for i in range(1, n):
+        if n % i == 0:
+            tong_uoc += i
+    return tong_uoc == n
+print(uscln(24, 36))
+print(bscnn(4, 6))
+print(kiem_tra_nguyen_to(29))
+print(kiem_tra_so_hoan_thien(28)) # 28 = 1 + 2 + 4 + 7 + 14
 
-# Truy xuất theo khóa
-print(sinh_vien["ho_ten"])
+#BÀI 1.2:
+def in_loi_chao(ten):
+    print(f"Xin chao, {ten}!")
+    return # ham khong tra ve gia tri (tra ve None)
+def chia_lay_thuong_du(a, b):
+    return a // b, a % b # tra ve nhieu gia tri qua tuple
+in_loi_chao("An")
+thuong, du = chia_lay_thuong_du(17, 5)
+print(f"Thuong: {thuong}, du: {du}")
 
-# Truy xuất an toàn bằng get()
-print(sinh_vien.get("diem_tb"))
+#Hoạt động 2
+def gioi_thieu(ten, tuoi=18, lop="Chua ro"):
+    print(f"Ten: {ten} - Tuoi: {tuoi} - Lop: {lop}")
+gioi_thieu("An") # dung het gia tri mac dinh
+gioi_thieu("Binh", 20) # ghi de tuoi
+gioi_thieu("Chi", lop="CNTT01") # dung tham so tu khoa, bo qua tuoi
+gioi_thieu(ten="Dung", lop="CNTT02", tuoi=19) # thu tu tham so tu khoa co the dao lon
 
-# Nếu khóa không tồn tại thì get() trả về giá trị mặc định
-print(sinh_vien.get("lop", "Chua co"))
-#bai1.2
-sinh_vien = {
-    "ho_ten": "Nguyen Van A",
-    "nam_sinh": 2004,
-    "diem_tb": 8.5
-}
-# 1. Thêm khóa "lop"
-sinh_vien["lop"] = "CNTT01"
-# 2. Sửa điểm trung bình
-sinh_vien["diem_tb"] = 9.0
-# 3. In thông tin sinh viên
-print(sinh_vien)
-# 4. Xóa khóa "diem_tb" và lấy giá trị vừa xóa
-diem_cu = sinh_vien.pop("diem_tb")
-# 5. In dictionary sau khi xóa
-print(sinh_vien, "- diem da xoa:", diem_cu)
-# 6. Cập nhật/thêm nhiều khóa cùng lúc
-sinh_vien.update({
-    "nam_sinh": 2003,
-    "email": "a@example.com"
-})
-# 7. In kết quả cuối cùng
-print(sinh_vien)
-#bai2
-diem_mon_hoc = {
-    "Toan": 8.0,
-    "Ly": 7.5,
-    "Hoa": 9.0,
-    "Van": 6.5
-}
-# 1. Duyệt qua các key (tên môn)
-for mon in diem_mon_hoc.keys():
-    print(mon)
-# 2. Duyệt qua các value (điểm)
-for diem in diem_mon_hoc.values():
-    print(diem)
-# 3. Duyệt qua cả key và value
-for mon, diem in diem_mon_hoc.items():
-    print(f"{mon}: {diem}")
-# 4. Tính điểm trung bình
-tong_diem = 0
-for diem in diem_mon_hoc.values():
-    tong_diem = tong_diem + diem
-print("Diem trung binh:", round(tong_diem / len(diem_mon_hoc), 2))
+#Hoạt động 3
+#BÀI 3.1
+def tinh_tong(*args):
+    tong = 0
+    for so in args:
+        tong += so
+    return tong
+print(tinh_tong(1, 2, 3))
+print(tinh_tong(5, 10, 15, 20, 25))
+print(tinh_tong()) # khong truyen so nao -> tra ve 0
 
-#bai3.1
-diem_mon_hoc = {"Toan": 8.0, "Ly": 7.5, "Hoa": 9.0, "Van": 6.5}
-# 1. Tạo dictionary điểm cộng 0.5 cho mỗi môn
-diem_cong_diem = {mon: round(diem + 0.5, 2)
-                  for mon, diem in diem_mon_hoc.items()}
-print(diem_cong_diem)
-# 2. Chuyển tên môn học thành chữ in hoa
-ten_mon_viet_hoa = {mon.upper(): diem
-                    for mon, diem in diem_mon_hoc.items()}
-print(ten_mon_viet_hoa)
-#bai3.2
-mon_hoc_ky1 = {"Toan", "Ly", "Hoa", "Van"}
-mon_hoc_ky2 = {"Toan", "Anh", "Tin", "Van"}
-# Giao: môn học chung của 2 học kỳ
-print(mon_hoc_ky1 & mon_hoc_ky2)
-# Hợp: tất cả môn học của cả 2 học kỳ
-print(mon_hoc_ky1 | mon_hoc_ky2)
-# Hiệu: môn chỉ có ở học kỳ 1
-print(mon_hoc_ky1 - mon_hoc_ky2)
-# Hiệu: môn chỉ có ở học kỳ 2
-print(mon_hoc_ky2 - mon_hoc_ky1)
-# Phần bù đối xứng: môn chỉ xuất hiện ở một trong hai học kỳ
-print(mon_hoc_ky1 ^ mon_hoc_ky2)
-
-
+#BÀI 3.2
+def in_thong_tin(ho_ten, tuoi, **kwargs):
+    print(f"Ho ten: {ho_ten} - Tuoi: {tuoi}")
+    for khoa, gia_tri in kwargs.items():
+        print(f" {khoa}: {gia_tri}")
+in_thong_tin("Nguyen Van A", 20, lop="CNTT01", que_quan="Ha Noi")
+in_thong_tin("Tran Thi B", 21, email="b@example.com")
